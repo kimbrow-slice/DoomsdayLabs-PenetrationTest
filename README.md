@@ -1,6 +1,6 @@
 # Doomsday Labs Penetration Testing Report
 
-This repository contains the detailed penetration testing report and associated documents for Doomsday Labs' internal network, scoped within the IP range 10.100.1.2 to 10.100.1.7.
+This repository contains a penetration testing report and supporting documents for BSidesKC Pentration Testing Training 2024 "Doomsday Labs".
 
 ## Overview
 
