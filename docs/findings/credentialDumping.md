@@ -65,4 +65,4 @@ This section covers the detailed methodology and findings from the credential du
   - Conduct frequent security audits to ensure that all users adhere to the updated password policies and to identify any potential security gaps.
 
 ## Conclusion
-The credential dumping efforts during the penetration test revealed significant vulnerabilities in Doomsday Labs' password security practices. Adopting stringent password policies and regular audits can significantly mitigate these security risks and protect against future breaches.
+The credential dumping efforts during the penetration test revealed significant vulnerabilities in Doomsday Labs' password security practices. Adopting stringent password policies and regular audits can help mitigate these security risks and protect against future breaches.
