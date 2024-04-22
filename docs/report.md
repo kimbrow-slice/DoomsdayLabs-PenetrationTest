@@ -1,6 +1,6 @@
-# Comprehensive Penetration Testing Report
+# Penetration Testing Report
 
-## Executive Summary
+## Summary
 This document outlines the penetration testing activities for Doomsday Labs' network within the IP range 10.100.1.2 to 10.100.1.7 aimed at identifying and mitigating vulnerabilities.
 
 ## Test Environment
@@ -26,7 +26,7 @@ This document outlines the penetration testing activities for Doomsday Labs' net
 ## Methodology
 The test followed a structured approach from initial reconnaissance using OSINT to exploitation of identified vulnerabilities.
 
-## Detailed Findings and Recommendations
+## Findings and Recommendations
 - **SMB Relay Attack**: 
   - *Recommendation*: Enable SMB signing and disable SMBv1.
 - **Credential Security**: 
