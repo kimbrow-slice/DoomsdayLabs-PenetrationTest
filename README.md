@@ -1,34 +1,22 @@
 # Doomsday Labs Penetration Testing Report
 
-This repository contains a penetration testing report and supporting documents for BSidesKC Pentration Testing Training 2024 "Doomsday Labs".
-
-## Overview
-
-- **Objective**: Identify and exploit network vulnerabilities.
-- **Methodology**: Combination of OSINT, SMB Relay attacks, and Credential Dumping.
+Welcome to the comprehensive repository documenting the security penetration testing conducted on Doomsday Labs' network. This testing focused on using various techniques to identify and exploit vulnerabilities.
 
 ## Repository Structure
 
-- `/docs` - Comprehensive reports and findings.
-- `/tools` - Scripts and tools used during the tests.
-- `/data` - Additional data (ensure there is no sensitive information).
+- `/docs` - Complete reports and additional documentation.
+- `/tools` - Information on tools used during the tests.
+- `/data` - Supporting data files (carefully reviewed for sensitive information).
 
-## Tools Used
+## Testing Overview
 
-- Nmap
-- Responder
-- Hashcat
+- **Objective**: Identify vulnerabilities and potential unauthorized access points within the network.
+- **Methodology**: Utilized a mix of active and passive reconnaissance followed by targeted attacks.
+- **Primary Tools Used**: Nmap, Responder, Hashcat, Impacket, Crackmapexec
 
-See individual folders in `/tools` for specific configurations and usage.
+## Key Documents
 
-## Report
-
-For a full report, see [the detailed report here](docs/report.md).
-
-## Findings
-
-Detailed findings are documented separately in the `/docs/findings` directory.
-
-- [SMB Relay Attacks](docs/findings/smb_relay.md)
-- [Credential Dumping](docs/findings/credential_dumping.md)
-- [Active Directory Exploitation](docs/findings/active_directory.md)
+- [Complete Testing Report](docs/report.md)
+- [SMB Relay Attack Details](docs/findings/smb_relay.md)
+- [Credential Dumping Details](docs/findings/credential_dumping.md)
+- [Active Directory Exploits](docs/findings/active_directory.md)
