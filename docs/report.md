@@ -1,43 +1,43 @@
 # Comprehensive Penetration Testing Report
 
 ## Executive Summary
-
-This document details the penetration testing activities for Doomsday Labs' network, scoped within IP range 10.100.1.2 to 10.100.1.7. The purpose was to uncover vulnerabilities and evaluate the network's security risks.
+This document outlines the penetration testing activities for Doomsday Labs' network within the IP range 10.100.1.2 to 10.100.1.7 aimed at identifying and mitigating vulnerabilities.
 
 ## Test Environment
-
 - **Scope**: IPs 10.100.1.2 to 10.100.1.7
 - **Tools Used**: Nmap, Responder, Hashcat, Impacket
+- **Credentials Used**: Initial credentials found via OSINT - info@doomsdaylabs.net:WhenTomorrowisNot@nOption2024
 
 ## Key Findings & Exploits
 
 ### SMB Relay and Credential Harvesting
-
-- **Finding**: Successfully executed SMB Relay attack against 10.100.1.3 to capture NTLMv2-SSP credentials.
-- **Impact**: Gained unauthorized access to network shares, leading to potential data breaches.
+- **Hash Captured**: `filemaker::DOOMSDAYLABS:322e0b51ca281c55:F1F9E4FF7872D084AC0E2CB11DE7D2C0`
+- **Finding**: Successfully performed an SMB Relay attack against 10.100.1.3, which led to the capture of NTLMv2-SSP credentials.
+- **Impact**: Unauthorized access was gained to network shares, which could lead to data exfiltration.
 
 ### Credential Dumping
-
-- **Technique**: Used Responder and hashcat for capturing and cracking NetNTLM hashes.
-- **Impact**: Unauthorized access escalation and potential for widespread network compromise.
+- **Technique Used**: NetNTLM hash `filemaker::DOOMSDAYLABS:322e0b51ca281c55:F1F9E4FF7872D084AC0E2CB11DE7D2C0` was cracked using Hashcat to reveal the plaintext password.
+- **Impact**: Further unauthorized access was obtained, allowing for lateral movement within the network.
 
 ### Active Directory Exploitation
-
-- **Finding**: Exploited poor configurations and weak policies in Active Directory.
-- **Impact**: Gained administrative access, compromising the entire network.
+- **Finding**: Leveraged cracked credentials to exploit poor Active Directory configurations and obtained administrative privileges.
+- **Impact**: Full administrative control over the network was achieved.
 
 ## Methodology
-
-Outlined the approach from reconnaissance to exploitation, detailing each step and tool used.
+The test followed a structured approach from initial reconnaissance using OSINT to exploitation of identified vulnerabilities.
 
 ## Detailed Findings and Recommendations
-
-Each vulnerability is discussed with potential impacts and specific recommendations for mitigation.
+- **SMB Relay Attack**: 
+  - *Recommendation*: Enable SMB signing and disable SMBv1.
+- **Credential Security**: 
+  - *Recommendation*: Improve password policies and conduct regular audits.
+- **Active Directory Configuration**:
+  - *Recommendation*: Regularly update and patch AD environments and conduct security reviews.
 
 ## Conclusion
-
-Recommendations for improving network security by addressing the identified vulnerabilities.
+Immediate action is recommended to address the vulnerabilities identified during this test to enhance the security posture of Doomsday Labs.
 
 ## Appendix: Tools and Commands
-
-Descriptions and usage examples for all tools used during the testing.
+- **Nmap**: `nmap -sT -oN -sV -sC 10.100.1.2-10.100.1.7`
+- **Responder**: `responder -I eth0 -w -rf`
+- **Hashcat**: `hashcat -m 5600 hashfile.txt -r rules.txt -o cracked.out`
