@@ -6,7 +6,7 @@ This document presents a detailed account of the penetration testing executed ag
 ## Test Environment
 - **Scope**: Examined IP addresses range from 10.100.1.2 to 10.100.1.7.
 - **Operating Systems**: Targets on Windows Server 2019; Attacks from Kali Linux.
-- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz, Evil-WinRM.
+- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz/mimikatz, Evil-WinRM.
 
 ## Key Exploits and Findings
 
