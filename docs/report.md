@@ -73,13 +73,13 @@ This document presents a detailed account of the penetration testing executed ag
 - **Progressive Actions**:
     - Used the obtained credentials for lateral movements, Kerberoasting, and ultimately for accessing the domain controller.
 
-## Recommendations
+## Mitigations
 - **SMB Relay Attack Prevention**: Implement SMB signing and enforce stringent authentication measures to curb relay attacks.
 - **Credential Security Enhancement**: Improve monitoring of credential usage and enforce multi-factor authentication where feasible.
 - **Active Directory Maintenance**: Regularly update and audit Active Directory configurations. Utilize tools like Bloodhound to preemptively identify and mitigate unusual access patterns or potential escalations.
 
 ## Conclusion
-The penetration test exposed multiple critical vulnerabilities that could potentially be exploited to gain unauthorized access and control over network resources. Prompt remediation of these issues is advised to strengthen the network's security framework.
+The penetration test exposed multiple critical vulnerabilities that could potentially be exploited to gain unauthorized access and control over network resources.
 
 ## Appendix
 - **Tools and Commands**:
