@@ -22,7 +22,7 @@ responder -I eth0 -w -rf
 
 ## Hashcat 
 
-Hashcat is a free open-source "cracker" which is used in the process decoding stolen encrypted passwords and hashes. 
+Hashcat is a free open-source software that is considered the worlds fastest password recovery tool. This is often used to crack encrypted passwords or hashes to gain priviledge escalation. 
 
 ### Usage
 
