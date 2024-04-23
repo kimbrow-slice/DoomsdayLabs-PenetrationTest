@@ -8,10 +8,24 @@ Nmap (Network Mapper) is a free and open-source network scanner used to discover
 
 ### Usage
 
-```bash
+```
 nmap -sT -oN -sV -sC [target IP]
+```
 
+## Responder
+
+### Usage
+
+```
 responder -I eth0 -w -rf
+```
 
+## Hashcat 
+
+Hashcat is a free open-source "cracker" which is used in the process decoding stolen encrypted passwords and hashes. 
+
+### Usage
+
+```
 hashcat -m 5600 hashfile.txt /usr/share/wordlists/rockyou.txt -r rules.txt -o hashfile.out
-
+```
