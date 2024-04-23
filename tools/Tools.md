@@ -14,6 +14,8 @@ nmap -sT -oN -sV -sC [target IP]
 
 ## Responder
 
+Responder is a package that contains LLMNR, NBT-NS and MDNS posioner. We utilized this tool, in aid of a LNK file being dropped, to capture NTLMv2 hashes from a local administrator which was later decrypted. 
+
 ### Usage
 
 ```
