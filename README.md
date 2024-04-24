@@ -18,4 +18,4 @@ This repository will overview the penetration testing conducted on "Doomsday Lab
 - [Complete Testing Report](docs/report.md)
 - [SMB Relay Attack Details](docs/findings/smb_relay.md)
 - [Credential Dumping Details](docs/findings/credentialDumping.md)
-- [Active Directory Exploits](docs/findings/active_directory.md)
+- [Active Directory Exploits](docs/findings/activeDirectory.md)
