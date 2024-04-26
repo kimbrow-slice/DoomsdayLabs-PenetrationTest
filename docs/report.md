@@ -1,4 +1,4 @@
-# Comprehensive Penetration Testing Report for Doomsday Labs
+# Penetration Testing Report for Doomsday Labs
 
 ## Executive Summary
 This document presents a detailed account of the penetration testing executed against Doomsday Labs' network, covering IP addresses from 10.100.1.2 to 10.100.1.7. The primary goal was to identify vulnerabilities within the network and find potential security risks using various techniques including OSINT, SMB Relay attacks, Credential Dumping, and Active Directory Exploitation.
