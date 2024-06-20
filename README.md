@@ -10,7 +10,7 @@ This repository will overview the penetration testing conducted on "Doomsday Lab
 
 - **Objective**: Identify vulnerabilities and potential unauthorized access points within the network.
 - **Methodology**: Utilized a mix of active and passive reconnaissance followed by targeted attacks.
-- **Operating Systems**: Targets on Windows Server 2019; Attacks from Kali Linux.
+- **Operating Systems**: Targets on Windows 10 23H2, Windows Server 2019; Attacks from Kali Linux.
 - **Primary Tools Used**: Nmap, Crackmapexec, Responder, Hashcat, Impacket, Bloodhound, Neo4j, pypykatz/mimikatz, Evil-WinRM.
 
 ## Key Documents
